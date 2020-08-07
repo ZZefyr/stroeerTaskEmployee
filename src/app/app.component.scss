@@ -1,5 +1,14 @@
 .header {
-  background-color: #000E35
+  background-color: #000E35;
+  min-height: 4.3rem;
+  h1 {
+    color:white;
+    padding-top:1rem;
+    text-align:right;
+  }
+  img {
+    float:left;
+  }
 }
 
 .container {
