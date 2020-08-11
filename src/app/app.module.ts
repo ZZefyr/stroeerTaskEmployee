@@ -6,6 +6,9 @@ import { InMemoryDataService } from './services/in-memory-data.service';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule} from '@angular/material/sort';
+import { FormsModule } from '@angular/forms';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app.component';
@@ -23,9 +26,11 @@ import { EmployeeAddComponent } from './components/employee-add/employee-add.com
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
     MatTableModule,
     MatButtonModule,
     MatPaginatorModule,
+    MatSortModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false, passThruUnknownUrl: true }

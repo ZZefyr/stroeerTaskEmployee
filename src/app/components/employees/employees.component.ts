@@ -3,6 +3,7 @@ import { Employee } from '../../interfaces/employee';
 import { EmployeeService } from '../../services/employee.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 
 
 
@@ -18,6 +19,7 @@ export class EmployeesComponent implements OnInit {
   constructor(private employeeService: EmployeeService) { }
   displayedColumns: string[] = ['id', 'firstName', 'lastName', 'position', 'dateOfBirth'];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   ngOnInit(): void {
     this.getEmployees();
   }
@@ -25,6 +27,6 @@ export class EmployeesComponent implements OnInit {
     this.employeeService.getEmployees()
       .subscribe({next: employees => this.dataSource = new MatTableDataSource<Employee>(employees),
         error: (error) => console.log('Chyba, nelze získat data o zaměstnancích'),
-        complete: () => this.dataSource.paginator = this.paginator });
+        complete: () => [this.dataSource.paginator = this.paginator, this.dataSource.sort = this.sort]});
   }
 }
