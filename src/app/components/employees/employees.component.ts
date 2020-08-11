@@ -24,7 +24,7 @@ export class EmployeesComponent implements OnInit {
   getEmployees(): void {
     this.employeeService.getEmployees()
       .subscribe({next: employees => this.dataSource = new MatTableDataSource<Employee>(employees),
-        error: (error) => console.log('Chyba'),
+        error: (error) => console.log('Chyba, nelze získat data o zaměstnancích'),
         complete: () => this.dataSource.paginator = this.paginator });
   }
 }
