@@ -15,7 +15,7 @@ import {MatSort} from '@angular/material/sort';
 })
 
 export class EmployeesComponent implements OnInit {
-  dataSource;
+  dataSource: MatTableDataSource<Employee>;
   constructor(private employeeService: EmployeeService) { }
   displayedColumns: string[] = ['id', 'firstName', 'lastName', 'position', 'dateOfBirth'];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
