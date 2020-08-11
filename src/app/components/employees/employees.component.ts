@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Employee } from '../../interfaces/employee';
 import { EmployeeService } from '../../services/employee.service';
-import { ApiService } from '../../services/api.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+
 
 
 
@@ -12,21 +14,17 @@ import { ApiService } from '../../services/api.service';
 })
 
 export class EmployeesComponent implements OnInit {
-  dataSource: Employee[];
+  dataSource;
   constructor(private employeeService: EmployeeService) { }
-
+  displayedColumns: string[] = ['id', 'firstName', 'lastName', 'position', 'dateOfBirth'];
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   ngOnInit(): void {
     this.getEmployees();
   }
-
-  displayedColumns: string[] = ['id', 'firstName', 'lastName', 'position', 'dateOfBirth'];
-
   getEmployees(): void {
     this.employeeService.getEmployees()
-      .subscribe(employees => this.dataSource = employees);
+      .subscribe({next: employees => this.dataSource = new MatTableDataSource<Employee>(employees),
+        error: (error) => console.log('Chyba'),
+        complete: () => this.dataSource.paginator = this.paginator });
   }
-
-
-
-
 }

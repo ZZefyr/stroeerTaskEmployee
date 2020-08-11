@@ -14,7 +14,9 @@ export class InMemoryDataService implements InMemoryDbService {
       { id: 5, firstName: 'Mirek', lastName: 'Stovoda', position: 'help desk', dateOfBirth: '1990-04-22'},
       { id: 6, firstName: 'Vratislav', lastName: 'Vylejmito', position: 'scrum master', dateOfBirth: '1989-01-15'},
       { id: 7, firstName: 'George', lastName: 'Skočdopole', position: 'product manager', dateOfBirth: '1989-03-22'},
-      { id: 8, firstName: 'František', lastName: 'Vezehnůj', position: 'full-stack developer', dateOfBirth: '1998-08-11'}
+      { id: 8, firstName: 'František', lastName: 'Vezehnůj', position: 'full-stack developer', dateOfBirth: '1998-08-11'},
+      { id: 9, firstName: 'Ferdinand', lastName: 'Krupke', position: 'full-stack developer', dateOfBirth: '1978-06-09'},
+      { id: 10, firstName: 'Ladislav', lastName: 'Segedín', position: 'full-stack developer', dateOfBirth: '1948-08-11'}
     ];
     return {employees};
   }
