@@ -16,7 +16,17 @@ export class InMemoryDataService implements InMemoryDbService {
       { id: 7, firstName: 'George', lastName: 'Skočdopole', position: 'product manager', dateOfBirth: '1989-03-22'},
       { id: 8, firstName: 'František', lastName: 'Vezehnůj', position: 'full-stack developer', dateOfBirth: '1998-08-11'},
       { id: 9, firstName: 'Ferdinand', lastName: 'Krupke', position: 'full-stack developer', dateOfBirth: '1978-06-09'},
-      { id: 10, firstName: 'Ladislav', lastName: 'Segedín', position: 'full-stack developer', dateOfBirth: '1948-08-11'}
+      { id: 10, firstName: 'Mirek', lastName: 'Segedín', position: 'full-stack developer', dateOfBirth: '1948-08-11'},
+      { id: 11, firstName: 'Josef', lastName: 'Šoupátko', position: 'product manager', dateOfBirth: '1990-04-22'},
+      { id: 12, firstName: 'Alois', lastName: 'Nebel', position: 'full-stack developer', dateOfBirth: '1989-04-22'},
+      { id: 13, firstName: 'Vítězslav', lastName: 'Lžička', position: 'full-stack developer', dateOfBirth: '1989-04-22'},
+      { id: 14, firstName: 'Vít', lastName: 'Papoušek', position: 'sw admin', dateOfBirth: '1990-04-22'},
+      { id: 15, firstName: 'Kamil', lastName: 'Kohoutek', position: 'help desk', dateOfBirth: '1990-04-22'},
+      { id: 16, firstName: 'Hana', lastName: 'Kapavá', position: 'scrum master', dateOfBirth: '1989-01-15'},
+      { id: 17, firstName: 'Pavla', lastName: 'Rýpavá', position: 'product manager', dateOfBirth: '1989-03-22'},
+      { id: 18, firstName: 'Lenka', lastName: 'Ospalá', position: 'help desk', dateOfBirth: '1998-08-11'},
+      { id: 19, firstName: 'Barbora', lastName: 'Zlá', position: 'help desk', dateOfBirth: '1978-06-09'},
+      { id: 20, firstName: 'Susan', lastName: 'Smell', position: 'help desk', dateOfBirth: '1948-08-11'}
     ];
     return {employees};
   }
