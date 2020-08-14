@@ -11,19 +11,19 @@ import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-
+import { MatDialogModule } from '@angular/material/dialog';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EmployeesComponent } from './components/employees/employees.component';
-import { EmployeeAddComponent } from './components/employee-add/employee-add.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeesComponent,
-    EmployeeAddComponent
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +37,7 @@ import { EmployeeAddComponent } from './components/employee-add/employee-add.com
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false, passThruUnknownUrl: true }

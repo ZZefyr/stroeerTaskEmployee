@@ -4,6 +4,7 @@ import { EmployeeService } from '../../services/employee.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { ModalComponent } from '../modal/modal.component';
 
 
 
@@ -17,15 +18,13 @@ import { MatSort } from '@angular/material/sort';
 export class EmployeesComponent implements OnInit {
   isLoading = true;
   dataSource: MatTableDataSource<Employee>;
-  constructor(private employeeService: EmployeeService) { }
+  constructor(private employeeService: EmployeeService, public dialog: ModalComponent) { }
   displayedColumns: string[] = ['id', 'firstName', 'lastName', 'position', 'dateOfBirth'];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   ngOnInit(): void {
     this.getEmployees();
   }
-
-
   getEmployees(): void {
     this.employeeService.getEmployees()
       .subscribe({next: employees => this.dataSource = new MatTableDataSource<Employee>(employees),
@@ -35,11 +34,12 @@ export class EmployeesComponent implements OnInit {
   onRowClicked(row): void {
     console.log('Row clicked: ', row);
   }
-
+  openDialog(): void {
+    this.dialog.openDialog();
+  }
   applyFilter(filterValue: string): void {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
-
   }
 }
