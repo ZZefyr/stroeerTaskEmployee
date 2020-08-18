@@ -20,7 +20,6 @@ export class ModalComponent implements OnInit {
   constructor(public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   openDialog(data): void {
-    console.log(data.firstName);
     this.dialog.open(ModalComponent, {
       data: {
         name: data.firstName,

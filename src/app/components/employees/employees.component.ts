@@ -18,10 +18,11 @@ import { ModalComponent } from '../modal/modal.component';
 export class EmployeesComponent implements OnInit {
   isLoading = true;
   dataSource: MatTableDataSource<Employee>;
-  constructor(private employeeService: EmployeeService, public dialog: ModalComponent) { }
   displayedColumns: string[] = ['id', 'firstName', 'lastName', 'position', 'dateOfBirth'];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+
+  constructor(private employeeService: EmployeeService, public dialog: ModalComponent) { }
   ngOnInit(): void {
     this.getEmployees();
   }
