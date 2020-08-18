@@ -1,24 +1,25 @@
-<h1 mat-dialog-title>{{data.name}} {{data.lastName}}</h1>
+<h1 mat-dialog-title>{{data.firstName}} {{data.lastName}}</h1>
 <div mat-dialog-content>
   <form>
     <mat-form-field class="field-input">
       <mat-label>Jméno</mat-label>
-      <input matInput placeholder="Jméno" value={{data.name}}>
+      <input matInput placeholder="Jméno" name="firstName" [(ngModel)]='data.firstName'>
     </mat-form-field>
     <mat-form-field class="field-input">
       <mat-label>Příjmení</mat-label>
-      <input matInput placeholder="Příjmení" value={{data.lastName}}>
-    </mat-form-field>
-    <mat-form-field class="field-input">
-      <mat-label>Datum narození</mat-label>
-      <input matInput placeholder="Datum narození" value="{{data.dateOfBirth|date:'d.M.y'}}">
+      <input matInput placeholder="Příjmení" name="lastName" [(ngModel)]='data.lastName'>
     </mat-form-field>
     <mat-form-field class="field-input">
       <mat-label>Pozice</mat-label>
-      <input matInput placeholder="Pozice" value={{data.position}}>
+      <input matInput placeholder="Pozice" name="position"  [(ngModel)]='data.position' >
+    </mat-form-field>
+    <mat-form-field class="field-input">
+      <mat-label>Datum narození</mat-label>
+      <input type="date" matInput placeholder="Datum narození" name="dateOfBirth" [(ngModel)]='data.dateOfBirth'>
     </mat-form-field>
   </form>
 </div>
 <div mat-dialog-actions>
+  <button type="submit" mat-button (click)="save(data)">Uložit</button>
   <button mat-button mat-dialog-close>Zavřít</button>
 </div>

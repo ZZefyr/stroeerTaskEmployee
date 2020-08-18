@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
+import { Employee } from '../interfaces/employee';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InMemoryDataService implements InMemoryDbService {
-  createDb() {
+  createDb()
+  {
     const employees = [
       { id: 1, firstName: 'Honza', lastName: 'Mičurenko', position: 'full-stack developer', dateOfBirth: '1990-04-22'},
       { id: 2, firstName: 'David', lastName: 'Vozataj', position: 'full-stack developer', dateOfBirth: '1989-04-22'},
@@ -29,6 +31,10 @@ export class InMemoryDataService implements InMemoryDbService {
       { id: 20, firstName: 'Susan', lastName: 'Smell', position: 'help desk', dateOfBirth: '1948-08-11'}
     ];
     return {employees};
+  }
+
+  genId(employees: Employee[]): number {
+    return employees.length > 0 ? Math.max(...employees.map(employee => employee.id)) + 1 : 11;
   }
 
 }

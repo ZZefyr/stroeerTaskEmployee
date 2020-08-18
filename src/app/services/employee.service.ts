@@ -23,6 +23,23 @@ export class EmployeeService {
         catchError(this.handleError<Employee[]>('getEmployees', []))
       );
   }
+
+  /** GET hero by id. Will 404 if id not found */
+  getEmployee(id: number): Observable<Employee> {
+    const url = `${this.employeeUrl}/${id}`;
+    return this.http.get<Employee>(url).pipe(
+      tap(_ => console.log(`fetched Employee id=${id}`)),
+      catchError(this.handleError<Employee>(`getEmployee id=${id}`))
+    );
+  }
+
+  updateEmployee(employee: Employee): Observable<any> {
+    const url = `${this.employeeUrl}/${employee.id}`;
+    return this.http.put(url, JSON.stringify(employee), this.httpOptions)
+      .pipe(
+        catchError(this.handleError<any>('updateEmployee', []))
+      );
+  }
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error); // log to console instead
@@ -32,4 +49,6 @@ export class EmployeeService {
       return of(result as T);
     };
   }
+
+
 }
