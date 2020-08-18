@@ -39,6 +39,13 @@ table {
   }
 }
 
+.mat-row {
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(255, 90, 16, 0.47);
+  }
+}
+
 ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
   color: #ff5a10;
 }

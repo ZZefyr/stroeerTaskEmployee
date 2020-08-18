@@ -32,10 +32,10 @@ export class EmployeesComponent implements OnInit {
         complete: () => [ this.isLoading = false, this.dataSource.paginator = this.paginator, this.dataSource.sort = this.sort]});
   }
   onRowClicked(row): void {
-    console.log('Row clicked: ', row);
+    this.openDialog(row);
   }
-  openDialog(): void {
-    this.dialog.openDialog();
+  openDialog(data): void {
+    this.dialog.openDialog(data);
   }
   applyFilter(filterValue: string): void {
     filterValue = filterValue.trim(); // Remove whitespace
