@@ -10,7 +10,7 @@ import { Employee } from '../interfaces/employee';
   providedIn: 'root'
 })
 export class EmployeeService {
-  private employeeUrl = 'api/employees';
+  private employeeUrl = 'api/employees/';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -33,9 +33,10 @@ export class EmployeeService {
     );
   }
 
-  updateEmployee(employee: Employee): Observable<any> {
-    return this.http.put(this.employeeUrl, JSON.stringify(employee), this.httpOptions)
+  updateEmployee(employees: Employee): Observable<any> {
+    return this.http.put(this.employeeUrl, employees, this.httpOptions)
       .pipe(
+        tap(_ => console.log(`updated employee id=${employees.id}`)),
         catchError(this.handleError<any>('updateEmployee', []))
       );
   }

@@ -1,10 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Employee } from '../../interfaces/employee';
 import { EmployeeService } from '../../services/employee.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ModalComponent } from '../modal/modal.component';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+
+
 
 
 
@@ -15,6 +20,11 @@ import { ModalComponent } from '../modal/modal.component';
   styleUrls: ['./employees.component.scss']
 })
 
+@Injectable({
+  providedIn: 'root'
+})
+
+
 export class EmployeesComponent implements OnInit {
   isLoading = true;
   dataSource: MatTableDataSource<Employee>;
@@ -24,8 +34,9 @@ export class EmployeesComponent implements OnInit {
 
   constructor(
     private employeeService: EmployeeService,
-    public dialog: ModalComponent
-  ) { }
+    private dialog: MatDialog,
+    private dialogRef: MatDialogRef<ModalComponent>)
+   {}
 
   ngOnInit(): void {
     this.getEmployees();
@@ -44,7 +55,17 @@ export class EmployeesComponent implements OnInit {
   }
 
   openDialog(data): void {
-    this.dialog.openDialog(data);
+    this.dialog.open(ModalComponent, {
+      data: {
+        id: data.id,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        position: data.position,
+        dateOfBirth: data.dateOfBirth,
+      }
+    }).afterClosed().subscribe(() => {
+      this.getEmployees();
+    });
   }
 
   applyFilter(filterValue: string): void {
