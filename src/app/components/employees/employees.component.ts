@@ -7,6 +7,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ModalComponent } from '../modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Positions } from '../../interfaces/positions';
 
 
 @Component({
@@ -19,6 +20,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class EmployeesComponent implements OnInit {
   isLoading = true;
   dataSource: MatTableDataSource<Employee>;
+  jobPositions: Positions[];
   displayedColumns: string[] = ['id', 'firstName', 'lastName', 'position', 'dateOfBirth'];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -32,7 +34,7 @@ export class EmployeesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEmployees();
-    console.log(this.getJobPositions());
+    this.getJobPositions();
   }
 
   getEmployees(): void {
@@ -44,7 +46,12 @@ export class EmployeesComponent implements OnInit {
   }
 
   getJobPositions(): void {
-    this.positionApiService.getJobPositions();
+    this.positionApiService.getJobPositions()
+      .subscribe({
+        next: positions =>  this.jobPositions = positions,
+        error: error => console.log('Chyba, nelze získat data o zaměstnancích'),
+        complete: () => console.log(this.jobPositions)
+      });
   }
 
   onRowClicked(row): void {
