@@ -1,6 +1,6 @@
 <div class="container">
   <div class="button-row">
-    <button mat-raised-button color="primary">Přidat zaměstnance</button>
+    <button (click)="onAddButtonClicked()" mat-raised-button color="primary">Přidat zaměstnance</button>
   </div>
   <mat-form-field>
     <mat-label>Najít zaměstnance</mat-label>
@@ -43,7 +43,7 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr (click)="onRowClicked(row)" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr id="{{row.id}}"  (click)="onRowClicked(row)" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
   <mat-paginator [pageSizeOptions]="[10, 20, 30 ]" showFirstLastButtons></mat-paginator>

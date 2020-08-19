@@ -1,7 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit, Inject, Injectable } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EmployeeService } from '../../services/employee.service';
 import { Employee } from '../../interfaces/employee';
 
@@ -19,7 +17,6 @@ import { Employee } from '../../interfaces/employee';
 
 export class ModalComponent implements OnInit {
   updatedEmployee: Employee;
-  isClosed: boolean;
 
   constructor(
     private employeeService: EmployeeService,

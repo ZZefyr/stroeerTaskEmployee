@@ -1,27 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Injectable } from '@angular/core';
 import { Employee } from '../../interfaces/employee';
 import { EmployeeService } from '../../services/employee.service';
+import { ApiService} from '../../services/api.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ModalComponent } from '../modal/modal.component';
-import { MatDialogRef } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
-
-
-
-
 
 
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
-  styleUrls: ['./employees.component.scss']
-})
-
-@Injectable({
-  providedIn: 'root'
+  styleUrls: ['./employees.component.scss'],
 })
 
 
@@ -34,12 +25,14 @@ export class EmployeesComponent implements OnInit {
 
   constructor(
     private employeeService: EmployeeService,
-    private dialog: MatDialog,
-    private dialogRef: MatDialogRef<ModalComponent>)
+    private positionApiService: ApiService,
+    private dialog: MatDialog
+    )
    {}
 
   ngOnInit(): void {
     this.getEmployees();
+    console.log(this.getJobPositions());
   }
 
   getEmployees(): void {
@@ -50,8 +43,16 @@ export class EmployeesComponent implements OnInit {
         complete: () => [ this.isLoading = false, this.dataSource.paginator = this.paginator, this.dataSource.sort = this.sort]});
   }
 
+  getJobPositions(): void {
+    this.positionApiService.getJobPositions();
+  }
+
   onRowClicked(row): void {
     this.openEditDialog(row);
+  }
+
+  onAddButtonClicked(): void {
+    this.openAddDialog();
   }
 
   openEditDialog(data): void {
@@ -64,6 +65,12 @@ export class EmployeesComponent implements OnInit {
         dateOfBirth: data.dateOfBirth,
       }
     }).afterClosed().subscribe(() => {
+      this.getEmployees();
+    });
+  }
+
+  openAddDialog(): void {
+    this.dialog.open(ModalComponent).afterClosed().subscribe(() => {
       this.getEmployees();
     });
   }
