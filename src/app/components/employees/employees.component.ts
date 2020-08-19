@@ -51,10 +51,10 @@ export class EmployeesComponent implements OnInit {
   }
 
   onRowClicked(row): void {
-    this.openDialog(row);
+    this.openEditDialog(row);
   }
 
-  openDialog(data): void {
+  openEditDialog(data): void {
     this.dialog.open(ModalComponent, {
       data: {
         id: data.id,
