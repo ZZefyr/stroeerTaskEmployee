@@ -17,6 +17,7 @@ import { Employee } from '../../interfaces/employee';
 
 export class ModalComponent implements OnInit {
   updatedEmployee: Employee;
+  selectedValue: string;
 
   constructor(
     private employeeService: EmployeeService,

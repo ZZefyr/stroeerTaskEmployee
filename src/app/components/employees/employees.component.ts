@@ -34,7 +34,6 @@ export class EmployeesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEmployees();
-    this.getJobPositions();
   }
 
   getEmployees(): void {
@@ -48,10 +47,11 @@ export class EmployeesComponent implements OnInit {
   getJobPositions(): void {
     this.positionApiService.getJobPositions()
       .subscribe({
-        next: positions =>  this.jobPositions = positions,
-        error: error => console.log('Chyba, nelze získat data o zaměstnancích'),
-        complete: () => console.log(this.jobPositions)
+        next: positions => [this.jobPositions = positions,console.log(this.jobPositions)],
+        error: error => console.log('Chyba, nelze získat data'),
+        complete: () =>  console.log(this.jobPositions)
       });
+
   }
 
   onRowClicked(row): void {
@@ -77,7 +77,13 @@ export class EmployeesComponent implements OnInit {
   }
 
   openAddDialog(): void {
-    this.dialog.open(ModalComponent).afterClosed().subscribe(() => {
+    this.getJobPositions();
+    console.log(this.jobPositions);
+    this.dialog.open(ModalComponent, {
+      data: {
+        jobPositions: this.jobPositions
+      }
+    }).afterClosed().subscribe(() => {
       this.getEmployees();
     });
   }
