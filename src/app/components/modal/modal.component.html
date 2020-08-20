@@ -28,5 +28,5 @@
   <button *ngIf="data.dialogEdit" type="submit" mat-flat-button color="primary" (click)="update(data)"><mat-icon>save</mat-icon></button>
   <button *ngIf="!data.dialogEdit" type="submit" mat-flat-button color="primary" (click)="add(data)"><mat-icon>save</mat-icon></button>
   <button mat-button  mat-stroked-button color="primary"  mat-dialog-close><mat-icon>close</mat-icon></button>
-  <button *ngIf="data.dialogEdit" type="submit" mat-flat-button  color="warn"  (click)="delete(data)"><mat-icon>delete</mat-icon></button>
+  <button *ngIf="data.dialogEdit" type="submit" mat-flat-button  color="warn"  (click)="remove(data)"><mat-icon>delete</mat-icon></button>
 </div>

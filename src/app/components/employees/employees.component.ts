@@ -61,7 +61,6 @@ export class EmployeesComponent implements OnInit {
   }
 
   onRowClicked(row): void {
-    this.getEmployees();
     this.openEditDialog(row);
   }
 

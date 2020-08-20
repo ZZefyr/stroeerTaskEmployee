@@ -44,7 +44,7 @@ export class ModalComponent implements OnInit {
       });
   }
 
-  delete(data): void {
+  remove(data): void {
     this.employee = data;
     this.employeeService.deleteEmployee(this.employee)
       .subscribe( {

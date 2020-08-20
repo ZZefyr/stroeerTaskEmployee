@@ -28,4 +28,8 @@ export class InMemoryDataService implements InMemoryDbService {
     return {employees};
   }
 
+  genId(employees: Employee[]): number {
+    return employees.length > 0 ? Math.max(...employees.map(employee => employee.id)) + 1 : 11;
+  }
+
 }
