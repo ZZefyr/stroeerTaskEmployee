@@ -69,7 +69,8 @@ export class EmployeesComponent implements OnInit {
         id: data.id,
         firstName: data.firstName,
         lastName: data.lastName,
-        jobPositions: data.position,
+        selectedPosition: data.position,
+        position: this.jobPositions,
         dateOfBirth: data.dateOfBirth,
         dialogEdit: true
       }
@@ -82,7 +83,7 @@ export class EmployeesComponent implements OnInit {
     this.dialog.open(ModalComponent, {
       data: {
         dialogEdit: false,
-        jobPositions: this.jobPositions
+        position: this.jobPositions
       }
     }).afterClosed().subscribe(() => {
       this.getEmployees();

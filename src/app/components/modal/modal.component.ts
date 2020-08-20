@@ -41,7 +41,13 @@ export class ModalComponent implements OnInit {
       });
   }
 
+  getDefaultSelectValue(data): void {
+    console.log(data);
+    this.selectedValue = data.selectedPosition;
+  }
+
   ngOnInit(): void {
+    this.getDefaultSelectValue(this.data);
   }
 
 }

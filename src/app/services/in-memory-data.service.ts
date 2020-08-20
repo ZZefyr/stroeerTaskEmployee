@@ -9,7 +9,7 @@ export class InMemoryDataService implements InMemoryDbService {
   createDb()
   {
     const employees = [
-      { id: 1, firstName: 'Honza', lastName: 'Mičurenko', position: 'full-stack developer', dateOfBirth: '1990-04-22'},
+      { id: 1, firstName: 'Honza', lastName: 'Mičurenko', position: 'full-stack developer' , dateOfBirth: '1990-04-22'},
       { id: 2, firstName: 'David', lastName: 'Vozataj', position: 'full-stack developer', dateOfBirth: '1989-04-22'},
       { id: 3, firstName: 'Rostislav', lastName: 'Hromdotoho', position: 'full-stack developer', dateOfBirth: '1989-04-22'},
       { id: 4, firstName: 'John', lastName: 'Doe', position: 'sw admin', dateOfBirth: '1990-04-22'},
