@@ -25,6 +25,8 @@ export class ModalComponent implements OnInit {
 
   update(data): void {
     this.employee = data;
+    this.employee.position = this.selectedValue;
+    console.log( this.selectedValue);
     this.employeeService.updateEmployee(this.employee)
      .subscribe({
       next: (result) =>  this.dialog.closeAll(),
@@ -34,6 +36,7 @@ export class ModalComponent implements OnInit {
 
   add(data): void {
     this.employee = data;
+    this.employee.position = this.selectedValue;
     this.employeeService.addEmployee(this.employee)
       .subscribe({
         next: (result) =>  this.dialog.closeAll(),
@@ -41,9 +44,10 @@ export class ModalComponent implements OnInit {
       });
   }
 
-  getDefaultSelectValue(data): void {
-    console.log(data);
+getDefaultSelectValue(data): void {
+    if (data.selectedPosition) {
     this.selectedValue = data.selectedPosition;
+    }
   }
 
   ngOnInit(): void {

@@ -11,7 +11,7 @@
     </mat-form-field>
     <mat-form-field class="field-input">
       <mat-label>Pozice</mat-label>
-      <mat-select [(ngModel)]="selectedValue" name="position">
+      <mat-select [(ngModel)]="selectedValue" name="positions">
         <mat-option *ngFor="let position of data.position.positions" [value]="position" >
           {{position}}
         </mat-option>
