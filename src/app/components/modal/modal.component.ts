@@ -44,6 +44,14 @@ export class ModalComponent implements OnInit {
       });
   }
 
+  delete(data): void {
+    this.employee = data;
+    this.employeeService.deleteEmployee(this.employee)
+      .subscribe( {
+        next: (result) =>  this.dialog.closeAll(),
+        error: error => console.log('Chyba, nelze odstranit zaměstnance')});
+  }
+
 getDefaultSelectValue(data): void {
     if (data.selectedPosition) {
     this.selectedValue = data.selectedPosition;

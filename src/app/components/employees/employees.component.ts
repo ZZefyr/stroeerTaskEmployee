@@ -1,13 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Employee } from '../../interfaces/employee';
-import { EmployeeService } from '../../services/employee.service';
-import { ApiService} from '../../services/api.service';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { ModalComponent } from '../modal/modal.component';
-import { MatDialog } from '@angular/material/dialog';
-import { Positions } from '../../interfaces/positions';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Employee} from '../../interfaces/employee';
+import {EmployeeService} from '../../services/employee.service';
+import {ApiService} from '../../services/api.service';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {ModalComponent} from '../modal/modal.component';
+import {MatDialog} from '@angular/material/dialog';
+import {Positions} from '../../interfaces/positions';
 
 
 @Component({
@@ -25,41 +25,43 @@ export class EmployeesComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(
-    private employeeService: EmployeeService,
-    private positionApiService: ApiService,
-    private dialog: MatDialog
-    )
-   {}
+  constructor(private employeeService: EmployeeService,
+              private positionApiService: ApiService,
+              private dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
     this.getEmployees();
+    this.getJobPositions();
   }
 
   getEmployees(): void {
     this.employeeService.getEmployees()
       .subscribe({
-        next: employees =>  [this.dataSource = new MatTableDataSource<Employee>(employees), this.getJobPositions()],
+        next: employees => [this.dataSource = new MatTableDataSource<Employee>(employees)],
         error: error => console.log('Chyba, nelze získat data o zaměstnancích'),
         complete: () => [
           this.isLoading = false,
           this.dataSource.paginator = this.paginator,
           this.dataSource.sort = this.sort
-        ]});
+        ]
+      });
   }
 
-  /*ToDo: Určitě nebýt zavislý přímo na externí API. Lepší je uložit data z API do db a případně v určených intervalech aktualizovat*/
+  /* ToDo: Na zvážení zda-li nebýt zavislý přímo na externí API.*
+  * Lepší je možná uložit data z API do db a případně v určených intervalech aktualizovat *
+  */
   getJobPositions(): void {
     this.positionApiService.getJobPositions()
       .subscribe({
         next: positions => this.jobPositions = positions,
-        error: error => console.log('Chyba, nelze získat data'),
-        complete: () =>  console.log(this.jobPositions)
+        error: error => console.log('Chyba, nelze získat data')
       });
 
   }
 
   onRowClicked(row): void {
+    this.getEmployees();
     this.openEditDialog(row);
   }
 
@@ -90,6 +92,7 @@ export class EmployeesComponent implements OnInit {
         position: this.jobPositions
       }
     }).afterClosed().subscribe(() => {
+      /*ToDo: Předělat tak ať se přidá pouze nový řádek a nemusí se refreshovat celá tabulka*/
       this.getEmployees();
     });
   }
