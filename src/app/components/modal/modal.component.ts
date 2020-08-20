@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, Injectable } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { EmployeeService } from '../../services/employee.service';
 import { Employee } from '../../interfaces/employee';
 
@@ -21,15 +21,16 @@ export class ModalComponent implements OnInit {
   constructor(
     private employeeService: EmployeeService,
     public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<ModalComponent>) { }
+
 
   update(data): void {
     this.employee = data;
     this.employee.position = this.selectedValue;
-    console.log( this.selectedValue);
     this.employeeService.updateEmployee(this.employee)
      .subscribe({
-      next: (result) =>  this.dialog.closeAll(),
+      next: (result) =>  this.dialogRef.close(data),
       error: error => console.log('Chyba, nelze aktualizovat data o zaměstnancích'),
      });
   }
@@ -39,7 +40,7 @@ export class ModalComponent implements OnInit {
     this.employee.position = this.selectedValue;
     this.employeeService.addEmployee(this.employee)
       .subscribe({
-        next: (result) =>  this.dialog.closeAll(),
+        next: (result) =>  this.dialogRef.close(result),
         error: error => console.log('Chyba, nelze přidat zaměstnance'),
       });
   }
@@ -48,7 +49,7 @@ export class ModalComponent implements OnInit {
     this.employee = data;
     this.employeeService.deleteEmployee(this.employee)
       .subscribe( {
-        next: (result) =>  this.dialog.closeAll(),
+        next: (result) =>  this.dialogRef.close(data),
         error: error => console.log('Chyba, nelze odstranit zaměstnance')});
   }
 

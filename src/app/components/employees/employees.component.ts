@@ -32,13 +32,12 @@ export class EmployeesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEmployees();
-    this.getJobPositions();
   }
 
   getEmployees(): void {
     this.employeeService.getEmployees()
       .subscribe({
-        next: employees => [this.dataSource = new MatTableDataSource<Employee>(employees)],
+        next: employees => [this.dataSource = new MatTableDataSource<Employee>(employees),  this.getJobPositions()],
         error: error => console.log('Chyba, nelze získat data o zaměstnancích'),
         complete: () => [
           this.isLoading = false,
@@ -79,8 +78,8 @@ export class EmployeesComponent implements OnInit {
         dateOfBirth: data.dateOfBirth,
         dialogEdit: true
       }
-    }).afterClosed().subscribe(() => {
-      this.getEmployees();
+    }).afterClosed().subscribe((result) => {
+      this.refreshData(result, true);
     });
   }
 
@@ -90,9 +89,8 @@ export class EmployeesComponent implements OnInit {
         dialogEdit: false,
         position: this.jobPositions
       }
-    }).afterClosed().subscribe(() => {
-      /*ToDo: Předělat tak ať se přidá pouze nový řádek a nemusí se refreshovat celá tabulka*/
-      this.getEmployees();
+    }).afterClosed().subscribe((result) => {
+      this.refreshData(result, false);
     });
   }
 
@@ -100,5 +98,17 @@ export class EmployeesComponent implements OnInit {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
+  }
+
+  refreshData(data: Employee, updateExistingData: boolean){
+    if(updateExistingData){
+      let id = data.id;
+      let employeeIndex = this.dataSource.data.findIndex(data => data.id === id);
+      this.dataSource.data[employeeIndex] = data;
+    }
+    else {
+      this.dataSource.data.push(data);
+    }
+    this.dataSource.data = [...this.dataSource.data];
   }
 }
