@@ -1,7 +1,7 @@
-import { Component, OnInit, Inject, Injectable } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { EmployeeService } from '../../services/employee.service';
-import { Employee } from '../../interfaces/employee';
+import {Component, OnInit, Inject, Injectable} from '@angular/core';
+import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {EmployeeService} from '../../services/employee.service';
+import {Employee} from '../../interfaces/employee';
 
 @Component({
   selector: 'app-modal',
@@ -22,25 +22,28 @@ export class ModalComponent implements OnInit {
     private employeeService: EmployeeService,
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ModalComponent>) { }
+    public dialogRef: MatDialogRef<ModalComponent>) {
+  }
 
 
   update(data): void {
+    delete data.dialogEdit;
     this.employee = data;
     this.employee.position = this.selectedValue;
     this.employeeService.updateEmployee(this.employee)
-     .subscribe({
-      next: (result) =>  this.dialogRef.close(data),
-      error: error => console.log('Chyba, nelze aktualizovat data o zaměstnancích'),
-     });
+      .subscribe({
+        next: (result) => this.dialogRef.close(data),
+        error: error => console.log('Chyba, nelze aktualizovat data o zaměstnancích'),
+      });
   }
 
   add(data): void {
+    delete data.dialogEdit;
     this.employee = data;
     this.employee.position = this.selectedValue;
     this.employeeService.addEmployee(this.employee)
       .subscribe({
-        next: (result) =>  this.dialogRef.close(result),
+        next: (result) => this.dialogRef.close(result),
         error: error => console.log('Chyba, nelze přidat zaměstnance'),
       });
   }
@@ -48,14 +51,15 @@ export class ModalComponent implements OnInit {
   remove(data): void {
     this.employee = data;
     this.employeeService.deleteEmployee(this.employee)
-      .subscribe( {
-        next: (result) =>  this.dialogRef.close(data),
-        error: error => console.log('Chyba, nelze odstranit zaměstnance')});
+      .subscribe({
+        next: (result) => this.dialogRef.close(data),
+        error: error => console.log('Chyba, nelze odstranit zaměstnance')
+      });
   }
 
-getDefaultSelectValue(data): void {
+  getDefaultSelectValue(data): void {
     if (data.selectedPosition) {
-    this.selectedValue = data.selectedPosition;
+      this.selectedValue = data.selectedPosition;
     }
   }
 
