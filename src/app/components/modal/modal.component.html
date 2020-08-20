@@ -25,7 +25,8 @@
 </div>
 
 <div mat-dialog-actions>
-  <button *ngIf="data.dialogEdit" type="submit" mat-button (click)="update(data)">Upravit</button>
-  <button *ngIf="!data.dialogEdit" type="submit" mat-button (click)="add(data)">Přidat</button>
-  <button mat-button mat-dialog-close>Zavřít</button>
+  <button *ngIf="data.dialogEdit" type="submit" mat-flat-button color="primary" (click)="update(data)"><mat-icon>save</mat-icon></button>
+  <button *ngIf="!data.dialogEdit" type="submit" mat-flat-button color="primary" (click)="add(data)"><mat-icon>save</mat-icon></button>
+  <button mat-button  mat-stroked-button color="primary" mat-dialog-close><mat-icon>close</mat-icon></button>
+  <button style="float:right" *ngIf="data.dialogEdit" type="submit" mat-flat-button  color="warn"  (click)="update(data)"><mat-icon>delete</mat-icon></button>
 </div>

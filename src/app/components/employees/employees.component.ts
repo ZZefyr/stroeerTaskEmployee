@@ -34,17 +34,21 @@ export class EmployeesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEmployees();
-    this.getJobPositions();
   }
 
   getEmployees(): void {
     this.employeeService.getEmployees()
       .subscribe({
-        next: employees =>  this.dataSource = new MatTableDataSource<Employee>(employees),
+        next: employees =>  [this.dataSource = new MatTableDataSource<Employee>(employees), this.getJobPositions()],
         error: error => console.log('Chyba, nelze získat data o zaměstnancích'),
-        complete: () => [ this.isLoading = false, this.dataSource.paginator = this.paginator, this.dataSource.sort = this.sort]});
+        complete: () => [
+          this.isLoading = false,
+          this.dataSource.paginator = this.paginator,
+          this.dataSource.sort = this.sort
+        ]});
   }
 
+  /*ToDo: Určitě nebýt zavislý přímo na externí API. Lepší je uložit data z API do db a případně v určených intervalech aktualizovat*/
   getJobPositions(): void {
     this.positionApiService.getJobPositions()
       .subscribe({
