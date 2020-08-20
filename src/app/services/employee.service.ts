@@ -40,6 +40,15 @@ export class EmployeeService {
         catchError(this.handleError<any>('updateEmployee', []))
       );
   }
+
+  addEmployee(employees: Employee): Observable<any> {
+    return this.http.post(this.employeeUrl, employees, this.httpOptions)
+      .pipe(
+        tap(_ => console.log(`added employee id=${employees.id}`)),
+        catchError(this.handleError<any>('addEmployee', []))
+      );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error); // log to console instead

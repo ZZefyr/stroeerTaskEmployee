@@ -14,9 +14,8 @@ import { Employee } from '../../interfaces/employee';
 })
 
 
-
 export class ModalComponent implements OnInit {
-  updatedEmployee: Employee;
+  employee: Employee;
   selectedValue: string;
 
   constructor(
@@ -24,13 +23,22 @@ export class ModalComponent implements OnInit {
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  save(data): void {
-    this.updatedEmployee = data;
-    this.employeeService.updateEmployee(this.updatedEmployee)
+  update(data): void {
+    this.employee = data;
+    this.employeeService.updateEmployee(this.employee)
      .subscribe({
       next: (result) =>  this.dialog.closeAll(),
       error: error => console.log('Chyba, nelze aktualizovat data o zaměstnancích'),
      });
+  }
+
+  add(data): void {
+    this.employee = data;
+    this.employeeService.addEmployee(this.employee)
+      .subscribe({
+        next: (result) =>  this.dialog.closeAll(),
+        error: error => console.log('Chyba, nelze přidat zaměstnance'),
+      });
   }
 
   ngOnInit(): void {
