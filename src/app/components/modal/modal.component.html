@@ -1,3 +1,5 @@
+<!-- create/edit dialog -->
+<div *ngIf="data.dialogType ==='edit' || data.dialogType==='add'" class="dialog-create-edit">
 <h1 mat-dialog-title>{{data.firstName}} {{data.lastName}}</h1>
 <div mat-dialog-content>
   <form>
@@ -25,8 +27,24 @@
 </div>
 
 <div mat-dialog-actions>
-  <button *ngIf="data.dialogEdit" type="submit" mat-flat-button color="primary" (click)="update(data)"><mat-icon>save</mat-icon></button>
-  <button *ngIf="!data.dialogEdit" type="submit" mat-flat-button color="primary" (click)="add(data)"><mat-icon>save</mat-icon></button>
+  <button *ngIf="data.dialogType === 'edit'" type="submit" mat-flat-button color="primary" (click)="update(data)"><mat-icon>save</mat-icon></button>
+  <button *ngIf="data.dialogType === 'add'" type="submit" mat-flat-button color="primary" (click)="add(data)"><mat-icon>save</mat-icon></button>
   <button mat-button  mat-stroked-button color="primary"  mat-dialog-close><mat-icon>close</mat-icon></button>
-  <button *ngIf="data.dialogEdit" type="submit" mat-flat-button  color="warn"  (click)="remove(data)"><mat-icon>delete</mat-icon></button>
 </div>
+</div>
+
+<!-- end create/edit dialog -->
+
+<!-- Delete dialog -->
+<div *ngIf="data.dialogType ==='delete'" class="dialog-delete">
+  <h1 mat-dialog-title>Odstranit {{data.firstName}} {{data.lastName}} ?</h1>
+  <div mat-dialog-content>
+    <p> Opravdu chcete smazat zaměstnance <strong>{{data.firstName}} {{data.lastName}} (id: {{data.id}}) </strong> ? </p>
+  </div>
+
+  <div mat-dialog-actions>
+    <button type="submit" mat-flat-button color="primary" (click)="remove(data)">Ano</button>
+    <button mat-button  mat-stroked-button color="primary"  mat-dialog-close>Ne</button>
+  </div>
+</div>
+<!-- End delete dialog -->

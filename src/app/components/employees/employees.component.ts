@@ -21,7 +21,7 @@ export class EmployeesComponent implements OnInit {
   isLoading = true;
   dataSource: MatTableDataSource<Employee>;
   jobPositions: Positions[];
-  displayedColumns: string[] = ['id', 'firstName', 'lastName', 'position', 'dateOfBirth'];
+  displayedColumns: string[] = ['id', 'firstName', 'lastName', 'position', 'dateOfBirth', 'action'];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -37,7 +37,7 @@ export class EmployeesComponent implements OnInit {
   getEmployees(): void {
     this.employeeService.getEmployees()
       .subscribe({
-        next: employees => [this.dataSource = new MatTableDataSource<Employee>(employees),  this.getJobPositions()],
+        next: employees => [this.dataSource = new MatTableDataSource<Employee>(employees), this.getJobPositions()],
         error: error => console.log('Chyba, nelze získat data o zaměstnancích'),
         complete: () => [
           this.isLoading = false,
@@ -67,6 +67,10 @@ export class EmployeesComponent implements OnInit {
     this.openAddDialog();
   }
 
+  onRemoveButtonClicked(row): void {
+    this.openDeleteDialog(row);
+  }
+
   openEditDialog(data): void {
     this.dialog.open(ModalComponent, {
       data: {
@@ -76,21 +80,37 @@ export class EmployeesComponent implements OnInit {
         selectedPosition: data.position,
         position: this.jobPositions,
         dateOfBirth: data.dateOfBirth,
-        dialogEdit: true
+        dialogType: 'edit'
       }
     }).afterClosed().subscribe((result) => {
-      this.refreshData(result, true);
+      this.refreshData(result, 'update');
+    });
+  }
+
+  openDeleteDialog(data): void {
+    this.dialog.open(ModalComponent, {
+      data: {
+        id: data.id,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        selectedPosition: data.position,
+        position: this.jobPositions,
+        dateOfBirth: data.dateOfBirth,
+        dialogType: 'delete'
+      }
+    }).afterClosed().subscribe((result) => {
+      this.refreshData(result, 'delete');
     });
   }
 
   openAddDialog(): void {
     this.dialog.open(ModalComponent, {
       data: {
-        dialogEdit: false,
+        dialogType: 'add',
         position: this.jobPositions
       }
     }).afterClosed().subscribe((result) => {
-      this.refreshData(result, false);
+      this.refreshData(result, 'add');
     });
   }
 
@@ -100,14 +120,21 @@ export class EmployeesComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  refreshData(data: Employee, updateExistingData: boolean){
-    if(updateExistingData){
-      let id = data.id;
-      let employeeIndex = this.dataSource.data.findIndex(data => data.id === id);
-      this.dataSource.data[employeeIndex] = data;
+  refreshData(employee: Employee, dialogType: string): void {
+    if (dialogType === 'update') {
+      const id = employee.id;
+      const employeeIndex = this.dataSource.data.findIndex(data => data.id === id);
+      this.dataSource.data[employeeIndex] = employee;
     }
-    else {
-      this.dataSource.data.push(data);
+
+    if (dialogType === 'delete') {
+      const id = employee.id;
+      const employeeIndex = this.dataSource.data.findIndex(data => data.id === id);
+      this.dataSource.data.splice(employeeIndex, 1);
+    }
+
+    if (dialogType === 'add') {
+      this.dataSource.data.push(employee);
     }
     this.dataSource.data = [...this.dataSource.data];
   }

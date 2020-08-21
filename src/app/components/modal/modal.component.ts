@@ -27,18 +27,18 @@ export class ModalComponent implements OnInit {
 
 
   update(data): void {
-    delete data.dialogEdit;
+    delete data.dialogType;
     this.employee = data;
     this.employee.position = this.selectedValue;
     this.employeeService.updateEmployee(this.employee)
       .subscribe({
-        next: (result) => this.dialogRef.close(data),
+        next: () => this.dialogRef.close(data),
         error: error => console.log('Chyba, nelze aktualizovat data o zaměstnancích'),
       });
   }
 
   add(data): void {
-    delete data.dialogEdit;
+    delete data.dialogType;
     this.employee = data;
     this.employee.position = this.selectedValue;
     this.employeeService.addEmployee(this.employee)
@@ -50,9 +50,10 @@ export class ModalComponent implements OnInit {
 
   remove(data): void {
     this.employee = data;
+    console.log(this.employee);
     this.employeeService.deleteEmployee(this.employee)
       .subscribe({
-        next: (result) => this.dialogRef.close(data),
+        next: () => this.dialogRef.close(data),
         error: error => console.log('Chyba, nelze odstranit zaměstnance')
       });
   }
