@@ -84,7 +84,9 @@ export class EmployeesComponent implements OnInit {
         dialogType: DialogTypes.UPDATE
       }
     }).afterClosed().subscribe((result) => {
+      if (result) {
       this.refreshData(result, DialogTypes.UPDATE);
+      }
     });
   }
 
@@ -100,7 +102,9 @@ export class EmployeesComponent implements OnInit {
         dialogType: DialogTypes.REMOVE
       }
     }).afterClosed().subscribe((result) => {
-      this.refreshData(result, DialogTypes.REMOVE);
+      if (result) {
+        this.refreshData(result, DialogTypes.REMOVE);
+      }
     });
   }
 
@@ -111,7 +115,9 @@ export class EmployeesComponent implements OnInit {
         position: this.jobPositions
       }
     }).afterClosed().subscribe((result) => {
-      this.refreshData(result, DialogTypes.CREATE);
+      if (result) {
+        this.refreshData(result, DialogTypes.CREATE);
+      }
     });
   }
 
@@ -124,16 +130,16 @@ export class EmployeesComponent implements OnInit {
   refreshData(employee: Employee, dialogType: string): void {
     const id = employee.id;
     const employeeIndex = this.dataSource.data.findIndex(data => data.id === id);
-    if (dialogType === DialogTypes.UPDATE) {
-      this.dataSource.data[employeeIndex] = employee;
-    }
-
-    if (dialogType === DialogTypes.REMOVE) {
-      this.dataSource.data.splice(employeeIndex, 1);
-    }
-
-    if (dialogType === DialogTypes.CREATE) {
-      this.dataSource.data.push(employee);
+    switch (dialogType) {
+      case DialogTypes.UPDATE:
+        this.dataSource.data[employeeIndex] = employee;
+        break;
+      case DialogTypes.REMOVE:
+        this.dataSource.data.splice(employeeIndex, 1);
+        break;
+      case DialogTypes.CREATE:
+        this.dataSource.data.push(employee);
+        break;
     }
     this.dataSource.data = [...this.dataSource.data];
   }
