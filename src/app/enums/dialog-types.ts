@@ -1,5 +1,5 @@
 export enum DialogTypes {
   CREATE = 'add',
-  EDIT = 'edit',
+  UPDATE = 'edit',
   REMOVE = 'delete'
 }

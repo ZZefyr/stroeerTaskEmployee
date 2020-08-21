@@ -81,10 +81,10 @@ export class EmployeesComponent implements OnInit {
         selectedPosition: data.position,
         position: this.jobPositions,
         dateOfBirth: data.dateOfBirth,
-        dialogType: DialogTypes.EDIT
+        dialogType: DialogTypes.UPDATE
       }
     }).afterClosed().subscribe((result) => {
-      this.refreshData(result, DialogTypes.EDIT);
+      this.refreshData(result, DialogTypes.UPDATE);
     });
   }
 
@@ -122,7 +122,7 @@ export class EmployeesComponent implements OnInit {
   }
 
   refreshData(employee: Employee, dialogType: string): void {
-    if (dialogType === DialogTypes.EDIT) {
+    if (dialogType === DialogTypes.UPDATE) {
       const id = employee.id;
       const employeeIndex = this.dataSource.data.findIndex(data => data.id === id);
       this.dataSource.data[employeeIndex] = employee;
