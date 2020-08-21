@@ -8,6 +8,7 @@ import {MatSort} from '@angular/material/sort';
 import {ModalComponent} from '../modal/modal.component';
 import {MatDialog} from '@angular/material/dialog';
 import {Positions} from '../../interfaces/positions';
+import {DialogTypes} from '../../enums/dialog-types';
 
 
 @Component({
@@ -80,10 +81,10 @@ export class EmployeesComponent implements OnInit {
         selectedPosition: data.position,
         position: this.jobPositions,
         dateOfBirth: data.dateOfBirth,
-        dialogType: 'edit'
+        dialogType: DialogTypes.EDIT
       }
     }).afterClosed().subscribe((result) => {
-      this.refreshData(result, 'update');
+      this.refreshData(result, DialogTypes.EDIT);
     });
   }
 
@@ -96,21 +97,21 @@ export class EmployeesComponent implements OnInit {
         selectedPosition: data.position,
         position: this.jobPositions,
         dateOfBirth: data.dateOfBirth,
-        dialogType: 'delete'
+        dialogType: DialogTypes.REMOVE
       }
     }).afterClosed().subscribe((result) => {
-      this.refreshData(result, 'delete');
+      this.refreshData(result, DialogTypes.REMOVE);
     });
   }
 
   openAddDialog(): void {
     this.dialog.open(ModalComponent, {
       data: {
-        dialogType: 'add',
+        dialogType: DialogTypes.CREATE,
         position: this.jobPositions
       }
     }).afterClosed().subscribe((result) => {
-      this.refreshData(result, 'add');
+      this.refreshData(result, DialogTypes.CREATE);
     });
   }
 
@@ -121,19 +122,19 @@ export class EmployeesComponent implements OnInit {
   }
 
   refreshData(employee: Employee, dialogType: string): void {
-    if (dialogType === 'update') {
+    if (dialogType === DialogTypes.EDIT) {
       const id = employee.id;
       const employeeIndex = this.dataSource.data.findIndex(data => data.id === id);
       this.dataSource.data[employeeIndex] = employee;
     }
 
-    if (dialogType === 'delete') {
+    if (dialogType === DialogTypes.REMOVE) {
       const id = employee.id;
       const employeeIndex = this.dataSource.data.findIndex(data => data.id === id);
       this.dataSource.data.splice(employeeIndex, 1);
     }
 
-    if (dialogType === 'add') {
+    if (dialogType === DialogTypes.CREATE) {
       this.dataSource.data.push(employee);
     }
     this.dataSource.data = [...this.dataSource.data];
