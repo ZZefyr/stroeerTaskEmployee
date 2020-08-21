@@ -122,15 +122,13 @@ export class EmployeesComponent implements OnInit {
   }
 
   refreshData(employee: Employee, dialogType: string): void {
+    const id = employee.id;
+    const employeeIndex = this.dataSource.data.findIndex(data => data.id === id);
     if (dialogType === DialogTypes.UPDATE) {
-      const id = employee.id;
-      const employeeIndex = this.dataSource.data.findIndex(data => data.id === id);
       this.dataSource.data[employeeIndex] = employee;
     }
 
     if (dialogType === DialogTypes.REMOVE) {
-      const id = employee.id;
-      const employeeIndex = this.dataSource.data.findIndex(data => data.id === id);
       this.dataSource.data.splice(employeeIndex, 1);
     }
 
