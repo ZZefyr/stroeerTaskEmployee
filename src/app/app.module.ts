@@ -10,6 +10,7 @@ import { MatSortModule} from '@angular/material/sort';
 import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app.component';
@@ -34,6 +35,7 @@ import { NotificationsComponent } from './components/notifications/notifications
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     MatTableModule,
     MatButtonModule,
     MatPaginatorModule,

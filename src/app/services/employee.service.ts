@@ -4,7 +4,7 @@ import {environment} from '../../environments/environment';
 import {Observable, of} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import { NotificationService } from './notification.service';
-
+import { DataValidationService } from './data-validation.service';
 import {Employee} from '../interfaces/employee';
 
 @Injectable({
@@ -17,8 +17,9 @@ export class EmployeeService {
   };
 
   constructor(private http: HttpClient,
-              private notification: NotificationService) {
-  }
+              private notification: NotificationService,
+              private validation: DataValidationService)
+  {}
 
   getEmployees(): Observable<Employee[]> {
     return this.http.get<Employee[]>(this.employeeUrl)

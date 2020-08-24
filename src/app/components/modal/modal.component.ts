@@ -2,6 +2,9 @@ import {Component, OnInit, Inject, Injectable} from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {EmployeeService} from '../../services/employee.service';
 import {Employee} from '../../interfaces/employee';
+import {DataValidationService} from '../../services/data-validation.service';
+
+
 
 @Component({
   selector: 'app-modal',
@@ -17,15 +20,21 @@ import {Employee} from '../../interfaces/employee';
 export class ModalComponent implements OnInit {
   employee: Employee;
   selectedValue: string;
+  firstName = this.validation.firstName;
+  lastName = this.validation.lastName;
+  position = this.validation.position;
+  dateOfBirth = this.validation.dateOfBirth;
 
   constructor(
     private employeeService: EmployeeService,
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ModalComponent>) {
+    public dialogRef: MatDialogRef<ModalComponent>,
+    private validation: DataValidationService) {
   }
 
 
+/* ToDO: vykonat update, jen když se data nějak změní */
   update(data): void {
     delete data.dialogType;
     this.employee = data;
@@ -58,14 +67,19 @@ export class ModalComponent implements OnInit {
       });
   }
 
-  getDefaultSelectValue(data): void {
+  getPositionSelectValue(data): void {
     if (data.selectedPosition) {
       this.selectedValue = data.selectedPosition;
     }
   }
 
+  getErrorMessage(): string{
+    return this.validation.getErrorMessage();
+  }
+
+
   ngOnInit(): void {
-    this.getDefaultSelectValue(this.data);
+    this.getPositionSelectValue(this.data);
   }
 
 }

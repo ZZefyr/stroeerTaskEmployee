@@ -5,30 +5,34 @@
   <form>
     <mat-form-field class="field-input">
       <mat-label>Jméno</mat-label>
-      <input matInput placeholder="Jméno" name="firstName" [(ngModel)]='data.firstName' required>
+      <input class="form-control" id="firstName" [formControl]="firstName" matInput placeholder="Jméno" name="firstName" [(ngModel)]='data.firstName' required>
+      <mat-error *ngIf="firstName.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
     <mat-form-field class="field-input">
       <mat-label>Příjmení</mat-label>
-      <input matInput placeholder="Příjmení" name="lastName" [(ngModel)]='data.lastName' required>
+      <input [formControl]="lastName" matInput placeholder="Příjmení" name="lastName" [(ngModel)]='data.lastName' required>
+      <mat-error *ngIf="lastName.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
     <mat-form-field class="field-input">
       <mat-label>Pozice</mat-label>
-      <mat-select [(ngModel)]="selectedValue" name="positions">
+      <mat-select [formControl]="position" [(ngModel)]="selectedValue" name="positions">
         <mat-option *ngFor="let position of data.position.positions" [value]="position" >
           {{position}}
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="position.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
     <mat-form-field class="field-input">
       <mat-label>Datum narození</mat-label>
-      <input type="date" matInput placeholder="Datum narození" name="dateOfBirth" [(ngModel)]='data.dateOfBirth' required>
+      <input [formControl]="dateOfBirth" type="date" matInput placeholder="Datum narození" name="dateOfBirth" [(ngModel)]='data.dateOfBirth' required>
+      <mat-error *ngIf="dateOfBirth.invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>
   </form>
 </div>
 
 <div mat-dialog-actions>
-  <button *ngIf="data.dialogType === 'edit'" type="submit" mat-flat-button color="primary" (click)="update(data)"><mat-icon>save</mat-icon></button>
-  <button *ngIf="data.dialogType === 'add'" type="submit" mat-flat-button color="primary" (click)="add(data)"><mat-icon>save</mat-icon></button>
+  <button *ngIf="data.dialogType === 'edit'" [disabled]="firstName.invalid || lastName.invalid || position.invalid || dateOfBirth.invalid" type="submit" mat-flat-button color="primary" (click)="update(data)"><mat-icon>save</mat-icon></button>
+  <button *ngIf="data.dialogType === 'add'" [disabled]="firstName.invalid || lastName.invalid || position.invalid || dateOfBirth.invalid" type="submit" mat-flat-button color="primary" (click)="add(data)"><mat-icon>save</mat-icon></button>
   <button mat-button  mat-stroked-button color="primary"  mat-dialog-close><mat-icon>close</mat-icon></button>
 </div>
 </div>
