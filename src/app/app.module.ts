@@ -19,13 +19,15 @@ import { ModalComponent } from './components/modal/modal.component';
 import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeesComponent,
-    ModalComponent
+    ModalComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,

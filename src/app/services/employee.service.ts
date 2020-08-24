@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Observable, of} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
+import { NotificationService } from './notification.service';
 
 import {Employee} from '../interfaces/employee';
 
@@ -15,7 +16,8 @@ export class EmployeeService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private notification: NotificationService) {
   }
 
   getEmployees(): Observable<Employee[]> {
@@ -37,7 +39,7 @@ export class EmployeeService {
   updateEmployee(employees: Employee): Observable<any> {
     return this.http.put(this.employeeUrl, employees, this.httpOptions)
       .pipe(
-        tap(_ => console.log(`updated employee id=${employees.id}`)),
+        tap(_ => this.notification.add(`Zaměstnanec ${employees.firstName} ${employees.lastName} s id ${employees.id}, byl aktualizován.`, 'info')),
         catchError(this.handleError<any>('updateEmployee', []))
       );
   }
@@ -45,7 +47,7 @@ export class EmployeeService {
   addEmployee(employees: Employee): Observable<any> {
     return this.http.post(this.employeeUrl, employees, this.httpOptions)
       .pipe(
-        tap(_ => console.log(`added employee id=${employees.id}`)),
+        tap(_ => this.notification.add(`Zaměstnanec ${employees.firstName} ${employees.lastName}, byl přidán.`, 'success')),
         catchError(this.handleError<any>('addEmployee', []))
       );
   }
@@ -54,14 +56,14 @@ export class EmployeeService {
     const id = employee.id;
     const url = `${this.employeeUrl}${id}`;
     return this.http.delete<Employee>(url, this.httpOptions).pipe(
-      tap(_ => console.log(`deleted employee id=${id}`)),
+      tap(_ => this.notification.add(`Zaměstnanec ${employee.firstName} ${employee.lastName} s id ${employee.id}, byl odstraněn.`, 'info')),
       catchError(this.handleError<Employee>('deleteEmployee'))
     );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error); // log to console instead
+      this.notification.add(error, 'error')
       // this.log(`${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.

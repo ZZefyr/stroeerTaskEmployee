@@ -1,0 +1,8 @@
+<div *ngIf="notificationService.notifications.length" class="container">
+  <div class="alert-box alert-box__{{notificationService.notificationType}}"
+       *ngFor='let notification of notificationService.notifications'>
+    {{notification}}
+    <mat-icon (click)="notificationService.clear()">close</mat-icon>
+
+</div>
+</div>
