@@ -39,6 +39,7 @@ export class ModalComponent implements OnInit {
     delete data.dialogType;
     this.employee = data;
     this.employee.position = this.selectedValue;
+    this.trimSpace(this.employee);
     this.employeeService.updateEmployee(this.employee)
       .subscribe({
         next: () => this.dialogRef.close(data),
@@ -50,6 +51,7 @@ export class ModalComponent implements OnInit {
     delete data.dialogType;
     this.employee = data;
     this.employee.position = this.selectedValue;
+    this.trimSpace(this.employee);
     this.employeeService.addEmployee(this.employee)
       .subscribe({
         next: (result) => this.dialogRef.close(result),
@@ -80,6 +82,10 @@ export class ModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPositionSelectValue(this.data);
+  }
+
+  trimSpace(obj:Employee): any {
+    Object.keys(obj).map(k => obj[k] = typeof obj[k] == 'string' ? obj[k].trim() : obj[k])
   }
 
 }

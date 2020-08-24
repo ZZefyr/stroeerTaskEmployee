@@ -7,7 +7,7 @@ import {FormControl, Validators, AbstractControl} from '@angular/forms';
 export class DataValidationService {
 
   firstName = new FormControl('', [Validators.required, Validators.minLength(2), this.removeSpaces]);
-  lastName = new FormControl('', [Validators.required, Validators.minLength(2), Validators.pattern(/^\S*$/)]);
+  lastName = new FormControl('', [Validators.required, Validators.minLength(2), this.removeSpaces]);
   position = new FormControl('', [Validators.required]);
   dateOfBirth = new FormControl('', [Validators.required]);
 
