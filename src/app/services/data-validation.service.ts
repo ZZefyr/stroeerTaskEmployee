@@ -20,22 +20,22 @@ export class DataValidationService {
 
   getErrorMessage(): string {
     if (this.firstName.hasError('required')) {
-      return 'Musíte vložit hodnotu';
+      return 'Povinný údaj';
     }
     if (this.firstName.hasError('minlength')) {
       return 'Musíte vložit minimálně 2 znaky';
     }
     if (this.lastName.hasError('required')) {
-      return 'Musíte vložit hodnotu';
+      return 'Povinný údaj';
     }
     if (this.lastName.hasError('minlength')) {
       return 'Musíte vložit minimálně 2 znaky';
     }
     if (this.position.hasError('required')) {
-      return 'Musíte vybrat hodnotu';
+      return 'Povinný údaj';
     }
     if (this.dateOfBirth.hasError('required')) {
-      return 'Musíte zadat datum narození';
+      return 'Povinný údaj';
     }
   }
 
