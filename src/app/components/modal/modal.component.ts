@@ -79,13 +79,12 @@ export class ModalComponent implements OnInit {
     return this.validation.getErrorMessage();
   }
 
+  trimSpace(obj: Employee): any {
+    Object.keys(obj).map(k => obj[k] = typeof obj[k] === 'string' ? obj[k].trim() : obj[k]);
+  }
 
   ngOnInit(): void {
     this.getPositionSelectValue(this.data);
-  }
-
-  trimSpace(obj:Employee): any {
-    Object.keys(obj).map(k => obj[k] = typeof obj[k] == 'string' ? obj[k].trim() : obj[k])
   }
 
 }
