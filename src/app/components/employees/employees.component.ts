@@ -20,6 +20,7 @@ import {DialogTypes} from '../../enums/dialog-types';
 
 export class EmployeesComponent implements OnInit {
   isLoading = true;
+  pageSize = 10;
   dataSource: MatTableDataSource<Employee>;
   jobPositions: Positions[];
   displayedColumns: string[] = ['id', 'firstName', 'lastName', 'position', 'dateOfBirth', 'action'];
@@ -48,7 +49,7 @@ export class EmployeesComponent implements OnInit {
       });
   }
 
-  /* ToDo: Na zvážení zda-li nebýt zavislý přímo na externí API.*
+  /* ToDo: Na zvážení zda-li být zavislý přímo na externí API.*
   * Lepší je možná uložit data z API do db a případně v určených intervalech aktualizovat *
   */
   getJobPositions(): void {
@@ -122,8 +123,8 @@ export class EmployeesComponent implements OnInit {
   }
 
   applyFilter(filterValue: string): void {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
     this.dataSource.filter = filterValue;
   }
 
