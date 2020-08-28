@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EmployeesComponent } from './components/employees/employees.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -32,6 +33,7 @@ import { NotificationsComponent } from './components/notifications/notifications
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
